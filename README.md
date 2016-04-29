@@ -1,6 +1,7 @@
 DokuWiki Docker Container
 =========================
 
+(based on the original image from M. Prasil: https://bitbucket.org/mprasil/docker_dokuwiki)
 
 Start:
 ------
