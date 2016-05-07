@@ -16,6 +16,7 @@ ENV DOKUWIKI_CSUM a4b8ae00ce94e42d4ef52dd8f4ad30fe
 ENV LAST_REFRESHED 6. September 2015
 
 ENV DATA_PATH=/dokuwiki
+ENV TRANSFER_PATH=/transfer.d
 
 # Set company's proxy server
 RUN if [ x${http_proxy} != "x" ]; then \
@@ -42,13 +43,17 @@ RUN wget -q -O /dokuwiki.tgz "http://download.dokuwiki.org/src/dokuwiki/dokuwiki
 RUN chown -R www-data:www-data ${DATA_PATH}
 
 # Configure lighttpd
-ADD dokuwiki.conf /tmp/dokuwiki.conf
+ADD src/config/dokuwiki.conf /tmp/dokuwiki.conf
 RUN envsubst '$DATA_PATH' < /tmp/dokuwiki.conf > /etc/lighttpd/conf-available/20-dokuwiki.conf
 RUN lighty-enable-mod dokuwiki fastcgi accesslog
 RUN mkdir /var/run/lighttpd && chown www-data.www-data /var/run/lighttpd
 
+RUN mkdir ${TRANSFER_PATH}
+ADD src/tools/*               /usr/sbin/
+ADD src/sysinit/entrypoint.sh /usr/sbin/
+
 EXPOSE 80
 VOLUME ["${DATA_PATH}/data/","${DATA_PATH}/lib/plugins/","${DATA_PATH}/conf/","${DATA_PATH}/lib/tpl/","/var/log/"]
 
-ENTRYPOINT ["/usr/sbin/lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
+ENTRYPOINT ["/usr/sbin/entrypoint.sh"]
 
