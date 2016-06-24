@@ -6,7 +6,7 @@ DokuWiki Docker Container
 Start
 -----
 
-	docker run -d -p 8080:80 --name wiki_instance dtwardow/dokuwiki 
+	docker run -d -p 8080:80 --name wiki_instance dtwardow/dokuwiki app:start
 
 Visit the install page (http://<host-ip>:8080/install.php) to configure your
 new DokuWiki instance, now.
@@ -58,3 +58,4 @@ Build your own
 --------------
 
 	docker build -t own_dokuwiki .
+
