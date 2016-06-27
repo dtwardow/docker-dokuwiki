@@ -1,19 +1,11 @@
-# VERSION 0.1
-# AUTHOR:          Dennis Twardowsky <twardowsky@gmail.com>
-# ORIGINAL AUTHOR: Miroslav Prasil <miroslav@prasil.info>
-# DESCRIPTION:     Image with DokuWiki & lighttpd
-# TO_BUILD:        docker build -t mprasil/dokuwiki .
-# TO_RUN:          docker run -d -p 80:80 --name my_wiki mprasil/dokuwiki
-
-
 FROM debian:jessie
 MAINTAINER Dennis Twardowsky <twardowsky@gmail.com>
 
 # Set the version you want of Twiki
-ENV DOKUWIKI_VERSION 2015-08-10a
-ENV DOKUWIKI_CSUM a4b8ae00ce94e42d4ef52dd8f4ad30fe
+ENV DOKUWIKI_VERSION 2016-06-26
+ENV DOKUWIKI_CSUM 08f65b37c7a423172306804932bf4823
 
-ENV LAST_REFRESHED 6. September 2015
+ENV LAST_REFRESHED 26. June 2016
 
 ENV DATA_PATH=/dokuwiki
 ENV TRANSFER_PATH=/transfer.d
