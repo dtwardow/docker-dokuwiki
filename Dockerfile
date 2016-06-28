@@ -19,7 +19,15 @@ RUN if [ x${http_proxy} != "x" ]; then \
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install wget lighttpd php5-cgi php5-gd gettext-base && \
+    apt-get -y install \
+      wget \
+      lighttpd \
+      php5-fpm php5-cgi php5-gd php-net-smtp \
+      php5-mcrypt php5-ldap php5-sqlite \
+      php5-mysql php5-pgsql php5-json \
+      php5-xmlrpc \
+      gettext-base \
+      supervisor && \
     apt-get clean autoclean && \
     apt-get autoremove && \
     rm -rf /var/lib/{apt,dpkg,cache,log}
@@ -39,6 +47,9 @@ ADD src/config/dokuwiki.conf /tmp/dokuwiki.conf
 RUN envsubst '$DATA_PATH' < /tmp/dokuwiki.conf > /etc/lighttpd/conf-available/20-dokuwiki.conf
 RUN lighty-enable-mod dokuwiki fastcgi accesslog
 RUN mkdir /var/run/lighttpd && chown www-data.www-data /var/run/lighttpd
+
+# Configure SupervisorD
+ADD src/sysinit/supervisor/*.conf /etc/supervisor/conf.d/
 
 RUN mkdir ${TRANSFER_PATH}
 ADD src/tools/*               /usr/sbin/

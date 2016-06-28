@@ -1,8 +1,22 @@
 #!/bin/bash
 
+# Exit on error during script execution
+set -e
+
 case ${1} in
     app:start)
-        /usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf
+        chown -R www-data:www-data \
+          ${DATA_PATH}/data \
+          ${DATA_PATH}/conf \
+          ${DATA_PATH}/lib/tpl \
+          ${DATA_PATH}/lib/plugins
+        chmod -R 0775 \
+          ${DATA_PATH}/data \
+          ${DATA_PATH}/conf \
+          ${DATA_PATH}/lib/tpl \
+          ${DATA_PATH}/lib/plugins
+
+        exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
         ;;
     app:backup)
         /usr/sbin/backup.sh
