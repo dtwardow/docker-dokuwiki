@@ -6,10 +6,10 @@ Start
 
 	docker run -d -p 8080:80 --name wiki_instance dtwardow/dokuwiki app:start
 
-Visit the install page (http://<host-ip>:8080/install.php) to configure your
-new DokuWiki instance, now.
+You can login to the DokuWiki with the superuser account "admin" with the 
+password "admin". Please change the password on the first login.
 
-Upate Image
+Update Image
 -----------
 
 First stop your container
