@@ -6,10 +6,8 @@ set -e
 case ${1} in
     app:start)
         # copy original files to volumes
-        if [ ! "$(ls -A ${DATA_PATH}/conf)" ]; then
-          echo "Copy dist conf files ..."
-          cp -r ${DATA_PATH}/conf_org/* ${DATA_PATH}/conf
-        fi
+        echo "Copy dist conf files ..."
+        cp -r ${DATA_PATH}/conf_org/* ${DATA_PATH}/conf
 
         if [ ! "$(ls -A ${DATA_PATH}/data)" ]; then
             echo "Copy initial data dir ..."
