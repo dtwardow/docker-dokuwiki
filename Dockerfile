@@ -1,9 +1,8 @@
 FROM debian:jessie
-MAINTAINER Dennis Twardowsky <twardowsky@gmail.com>
 
 # Set the version you want of Twiki
-ENV DOKUWIKI_VERSION 2017-02-19e
-ENV DOKUWIKI_CSUM 09bf175f28d6e7ff2c2e3be60be8c65f
+ENV DOKUWIKI_VERSION 2018-04-22a
+ENV DOKUWIKI_CSUM 18765a29508f96f9882349a304bffc03
 
 ENV LAST_REFRESHED 07. Sep 2017
 
