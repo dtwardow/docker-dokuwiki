@@ -56,4 +56,5 @@ EXPOSE 80
 VOLUME ["${DATA_PATH}/data/","${DATA_PATH}/lib/plugins/","${DATA_PATH}/conf/","${DATA_PATH}/lib/tpl/","/var/log/"]
 
 ENTRYPOINT ["/entrypoint.sh"]
+HEALTHCHECK --interval=5m --start-period=10s --timeout=3s CMD wget --quiet http://localhost/ || exit 1
 
