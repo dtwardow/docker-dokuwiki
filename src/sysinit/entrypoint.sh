@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Exit on error during script execution
 set -e
@@ -29,7 +29,7 @@ case ${1} in
         fi
 
         # correct permissions of volumes
-        chown -R www-data:www-data \
+        chown -R nobody:www-data \
           ${DATA_PATH}/data \
           ${DATA_PATH}/conf \
           ${DATA_PATH}/lib/tpl \
@@ -38,10 +38,11 @@ case ${1} in
           ${DATA_PATH}/data \
           ${DATA_PATH}/conf \
           ${DATA_PATH}/lib/tpl \
-          ${DATA_PATH}/lib/plugins
+          ${DATA_PATH}/lib/plugins \
+          /var/log/lighttpd /var/log/php7
 
         # start wiki
-        exec /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+        exec /usr/bin/supervisord -n -c /etc/supervisord.conf
         ;;
     app:backup)
         /usr/sbin/backup.sh
