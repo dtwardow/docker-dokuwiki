@@ -28,6 +28,9 @@ case ${1} in
             cp -r ${DATA_PATH}/conf_init/* ${DATA_PATH}/conf/
         fi
 
+        # Create missing folders
+        mkdir -p /var/log/php7
+
         # correct permissions of volumes
         chown -R nobody:www-data \
           ${DATA_PATH}/data \
