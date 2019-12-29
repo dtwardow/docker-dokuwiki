@@ -16,9 +16,15 @@ case ${1} in
         if [ ! "$(ls -A ${DATA_PATH}/lib/plugins)" ]; then
             echo "Copy initial plugins dir ..."
             cp -r ${DATA_PATH}/lib/plugins_org/* ${DATA_PATH}/lib/plugins
+        else
+            echo "Update initial plugins dir ..."
+            cp -ru ${DATA_PATH}/lib/plugins_org/* ${DATA_PATH}/lib/plugins
         fi
         if [ ! "$(ls -A ${DATA_PATH}/lib/tpl)" ]; then
             echo "Copy initial tpl dir ..."
+            cp -r ${DATA_PATH}/lib/tpl_org/* ${DATA_PATH}/lib/tpl
+        else
+            echo "Update initial tpl dir ..."
             cp -r ${DATA_PATH}/lib/tpl_org/* ${DATA_PATH}/lib/tpl
         fi
 
@@ -30,19 +36,22 @@ case ${1} in
 
         # Create missing folders
         mkdir -p /var/log/php7
+        mkdir -p /var/log/lighttpd
 
         # correct permissions of volumes
         chown -R nobody:www-data \
           ${DATA_PATH}/data \
           ${DATA_PATH}/conf \
           ${DATA_PATH}/lib/tpl \
-          ${DATA_PATH}/lib/plugins
+          ${DATA_PATH}/lib/plugins \
+          /var/log/lighttpd
+
         chmod -R 0775 \
           ${DATA_PATH}/data \
           ${DATA_PATH}/conf \
           ${DATA_PATH}/lib/tpl \
           ${DATA_PATH}/lib/plugins \
-          /var/log/lighttpd /var/log/php7
+          /var/log/php7 /var/log/lighttpd
 
         # start wiki
         exec /usr/bin/supervisord -n -c /etc/supervisord.conf
