@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3
 
 # Set the version you want of Twiki
 ENV DOKUWIKI_VERSION 2018-04-22b
@@ -8,17 +8,19 @@ ENV DATA_PATH=/dokuwiki
 ENV TRANSFER_PATH=/transfer.d
 
 # Add Alpine-PHP repo
-ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
-RUN echo "@php https://dl.bintray.com/php-alpine/v3.9/php-7.3" >> /etc/apk/repositories
+#ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+#RUN echo "@php https://dl.bintray.com/php-alpine/v3.10.3/php-7.3" >> /etc/apk/repositories
 
 # Update & install packages & cleanup afterwards
 RUN apk add --update --no-cache \
       wget gettext \
       lighttpd \
-      php-fpm@php php-cgi@php php-gd@php php7-pear-net_smtp@php \
-      php7-mcrypt php-ldap@php php-session@php php-iconv@php php-zlib@php php-bz2@php php-curl@php php-intl@php \
-      php-pdo@php php-pdo_sqlite@php php-pdo_pgsql@php php-pdo_mysql@php php-json@php \
-      php-xml@php php-xmlrpc@php \
+      php7-fpm php7-cgi php7-gd \
+      php7-mcrypt php7-ldap php7-session php7-iconv php7-zlib php7-bz2 php7-curl php7-intl \
+      php7-pdo php7-pdo_sqlite php7-pdo_pgsql php7-pdo_mysql php7-json php7-dom \
+      php7-xml php7-xmlrpc php7-xmlreader php7-xmlwriter php7-openssl php7-exif php7-ftp \
+      php7-gettext php7-imap php7-recode php7-calendar php7-simplexml \
+      php7-sockets php7-soap php7-snmp php7-xsl php7-zip \
       supervisor
 
 # Download & check & deploy dokuwiki & cleanup
@@ -56,5 +58,5 @@ EXPOSE 80
 VOLUME ["${DATA_PATH}/data/","${DATA_PATH}/lib/plugins/","${DATA_PATH}/conf/","${DATA_PATH}/lib/tpl/","/var/log/"]
 
 ENTRYPOINT ["/entrypoint.sh"]
-HEALTHCHECK --interval=5m --start-period=10s --timeout=3s CMD wget --quiet http://localhost/ || exit 1
+HEALTHCHECK --interval=10s --start-period=5s --timeout=5s CMD wget --quiet http://localhost/ || exit 1
 
