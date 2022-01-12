@@ -1,8 +1,8 @@
 FROM alpine:3
 
 # Set the version you want of Twiki
-ENV DOKUWIKI_VERSION 2018-04-22b
-ENV DOKUWIKI_CSUM 605944ec47cd5f822456c54c124df255
+ENV DOKUWIKI_VERSION 2020-07-29
+ENV DOKUWIKI_CSUM 8867b6a5d71ecb5203402fe5e8fa18c9
 
 ENV DATA_PATH=/dokuwiki
 ENV TRANSFER_PATH=/transfer.d
@@ -19,7 +19,7 @@ RUN apk add --update --no-cache \
       php7-mcrypt php7-ldap php7-session php7-iconv php7-zlib php7-bz2 php7-curl php7-intl \
       php7-pdo php7-pdo_sqlite php7-pdo_pgsql php7-pdo_mysql php7-json php7-dom \
       php7-xml php7-xmlrpc php7-xmlreader php7-xmlwriter php7-openssl php7-exif php7-ftp \
-      php7-gettext php7-imap php7-recode php7-calendar php7-simplexml \
+      php7-gettext php7-imap php7-calendar php7-simplexml \
       php7-sockets php7-soap php7-snmp php7-xsl php7-zip \
       supervisor
 
